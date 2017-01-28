@@ -17,7 +17,7 @@ class MyRobot (wpi.IterativeRobot):
         self.deltaTime = 0
 #        self.motors = [wpi.Spark(x) for x in range(4)]
 
-        self.drive = wpi.RobotDrive(0, 2, 1, 3)#self.motors[MyRobot.frontLeftChannel],
+        self.drive = wpi.RobotDrive(0, 1, 2, 3)#self.motors[MyRobot.frontLeftChannel],
                                     #self.motors[MyRobot.rearLeftChannel],
                                     #self.motors[MyRobot.frontRightChannel],
                                     #self.motors[MyRobot.rearRightChannel])
@@ -45,7 +45,6 @@ class MyRobot (wpi.IterativeRobot):
         if leftx < 0.25 and leftx > -0.25:
             leftx = 0
 
-        #heres ur fuckin change
 
         #wpi.DriverStation.reportWarning(self.timer.getMsClock(), False)
 

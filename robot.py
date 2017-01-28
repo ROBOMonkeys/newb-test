@@ -12,7 +12,7 @@ class MyRobot (wpi.IterativeRobot):
     solenoidChannel = 0
 
     def robotInit(self):
-        #self.timer = wpi.Timer()
+        self.timer = wpi.Timer()
 
         self.deltaTime = 0
 #        self.motors = [wpi.Spark(x) for x in range(4)]
@@ -45,15 +45,12 @@ class MyRobot (wpi.IterativeRobot):
         if leftx < 0.25 and leftx > -0.25:
             leftx = 0
 
-
-        #wpi.DriverStation.reportWarning(self.timer.getMsClock(), False)
-
-        self.drive.mecanumDrive_Cartesian(leftx, lefty, rightx, 0)
+        self.drive.mecanumDrive_Cartesian(-leftx, -rightx, -lefty, 0)
         if self.joystick.getAButton():
             state = self.solenoid.get()
             if state == True:
                 self.solenoid.set(False)
-            elif state == True:
+            else:
                 self.solenoid.set(True)
 
 

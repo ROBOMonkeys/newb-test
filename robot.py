@@ -23,12 +23,16 @@ class MyRobot (wpi.IterativeRobot):
                                     #self.motors[MyRobot.rearRightChannel])
         self.joystick = wpi.XboxController(MyRobot.joystickChannel)
         self.solenoid = wpi.Solenoid(MyRobot.solenoidChannel)
+        self.gyro = wpi.GyroBase
 
     def autonomousInit(self):
         pass
 
     def autonomousPeriodic(self):
-        pass
+        #Middle
+        self.gyro.getAngle()
+        self.drive.mecanumDrive_Cartesian(0, 3*.5, 0, self.gyro):
+
 
     def teleopInit(self):
         pass

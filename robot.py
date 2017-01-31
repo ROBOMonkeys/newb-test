@@ -11,7 +11,7 @@ class MyRobot (wpi.IterativeRobot):
 
     solenoidChannel = 0
 
-    gyroChannel =
+    gyroChannel = 0
 
     def robotInit(self):
         self.timer = wpi.Timer()

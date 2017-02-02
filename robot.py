@@ -25,16 +25,20 @@ class MyRobot (wpi.IterativeRobot):
                                     #self.motors[MyRobot.rearRightChannel])
         self.joystick = wpi.XboxController(MyRobot.joystickChannel)
         self.solenoid = wpi.Solenoid(MyRobot.solenoidChannel)
-        self.gyro = wpi.AnalogGyro
+        self.gyro = wpi.AnalogGyro(MyRobot.gyroChannel)
+        self.gyro.calibrate()
+        self.auto_cntr = 0
 
     def autonomousInit(self):
         pass
 
     def autonomousPeriodic(self):
         #Middle
-        self.drive.mecanumDrive_Cartesian(0, 1*.5, 0, self.gyro.getAngle())
+        self.auto_cntr += 1
+        if self.auto_cntr < 8:
+            self.drive.mecanumDrive_Cartesian(0, 0, 1*.5, self.gyro.getAngle())
         #Left/Right
-        #self.mecanumDrive_Cartesian(0,3.5*.5, 0, self.gyro.getAngle())
+        self.mecanumDrive_Cartesian(0, 3.5*.5, 0, self.gyro.getAngle())
 
 
 

@@ -38,14 +38,15 @@ class MyRobot (wpi.IterativeRobot):
 
     def autonomousInit(self):
         self.auto_state = self.chooser.getSelected()
+        self.timer.start()
 
     def autonomousPeriodic(self):
         #Middle
-        self.timer.getMsClock()
-        if self.timer.getMsClock() < 0:
+        if not self.timer.hasPeriodPassed(1):
             self.drive.mecanumDrive_Cartesian(0, 0, 1*.5, self.gyro.getAngle())
-        elif self.timer.getMsClock() == 0:
+        if self.timer.hasPeriodPassed(1):
             self.solenoid.set(True)
+
         #Left/Right
         #self.mecanumDrive_Cartesian(0, 3.5*.5, 0, self.gyro.getAngle())
         #self.mecanumDrive_Cartesian(0, 3.5*.5, 0, self.gyro.getAngle()

@@ -41,10 +41,10 @@ class MyRobot (wpi.IterativeRobot):
 
     def autonomousPeriodic(self):
         #Middle
-        self.auto_cntr += 1
-        if self.auto_cntr < 41:
+        self.timer.getMsClock()
+        if self.timer.getMsClock() < 0:
             self.drive.mecanumDrive_Cartesian(0, 0, 1*.5, self.gyro.getAngle())
-        elif self.auto_cntr == 41:
+        elif self.timer.getMsClock() == 0:
             self.solenoid.set(True)
         #Left/Right
         #self.mecanumDrive_Cartesian(0, 3.5*.5, 0, self.gyro.getAngle())

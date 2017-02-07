@@ -25,19 +25,27 @@ class MyRobot (wpi.IterativeRobot):
                                     #self.motors[MyRobot.rearRightChannel])
         self.joystick = wpi.XboxController(MyRobot.joystickChannel)
         self.solenoid = wpi.Solenoid(MyRobot.solenoidChannel)
-        self.gyro = wpi.AnalogGyro(MyRobot.gyroChannel)
+        self.gyro = wpi.ADXRS450_Gyro(MyRobot.gyroChannel)
         self.gyro.calibrate()
         self.auto_cntr = 0
+        self.auto_state = 0
+
+        self.chooser = wpi.SendableChooser()
+        self.chooser.addObject("Left", 1)
+        self.chooser.addObject("Center", 2)
+        self.chooser.addObject("Right", 3)
+        wpi.SmartDashboard.putData("Autonomouse Position", self.chooser)
 
     def autonomousInit(self):
-        pass
+        self.auto_state = self.chooser.getSelected()
 
     def autonomousPeriodic(self):
         #Middle
         self.auto_cntr += 1
-        if self.auto_cntr < 8:
-        self.auto_cntr.reset
+        if self.auto_cntr < 41:
             self.drive.mecanumDrive_Cartesian(0, 0, 1*.5, self.gyro.getAngle())
+        elif self.auto_cntr == 41:
+            self.solenoid.set(True)
         #Left/Right
         #self.mecanumDrive_Cartesian(0, 3.5*.5, 0, self.gyro.getAngle())
         #self.mecanumDrive_Cartesian(0, 3.5*.5, 0, self.gyro.getAngle()
@@ -48,7 +56,7 @@ class MyRobot (wpi.IterativeRobot):
         pass
 
     def teleopPeriodic(self):
-        lefty = self.joystick.getY(wpi.GenericHID.Hand.kLeft)
+        lefty = -self.joystick.getY(wpi.GenericHID.Hand.kLeft)
         leftx = self.joystick.getX(wpi.GenericHID.Hand.kLeft)
         rightx = self.joystick.getX(wpi.GenericHID.Hand.kRight)
 
@@ -59,7 +67,7 @@ class MyRobot (wpi.IterativeRobot):
         if leftx < 0.25 and leftx > -0.25:
             leftx = 0
 
-        self.drive.mecanumDrive_Cartesian(-leftx, -rightx, -lefty, 0)
+        self.drive.mecanumDrive_Cartesian(-leftx, -rightx, lefty, 0)
         if self.joystick.getAButton():
             state = self.solenoid.get()
             if state == True:

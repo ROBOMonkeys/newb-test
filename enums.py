@@ -1,5 +1,5 @@
 from wpilib import buttons
-from wpilib.timer import Timer
+
 
 
 class laggy_btns(buttons.JoystickButton):

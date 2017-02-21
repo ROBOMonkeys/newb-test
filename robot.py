@@ -77,7 +77,7 @@ class MyRobot (wpi.IterativeRobot):
             else:
                 self.drive.mecanumDrive_Cartesian(0, 0, 0, 0)
         elif self.auto_state == 2:
-        # for center
+        # for center autonomous
             if self.timer.get() < .6:
                 self.drive.mecanumDrive_Cartesian(0, 0, .5, 0)
             elif self.timer.get() < 3.8:
